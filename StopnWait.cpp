@@ -14,7 +14,7 @@ char info[20];
 int mau;
 
 //Hình gói tin
-void bong(int x, int y, int r, int mau) {
+void pkt(int x, int y, int r, int mau) {
 	setcolor(mau);
 	setfillstyle(1, mau);
 	pieslice(x, y, 0, 360, r);
@@ -25,14 +25,14 @@ void veHinh() {
 	setcolor(WHITE);
 	rectangle(50, 50, 150, 100);
 	rectangle(450, 50, 560, 100);
-	setcolor(YELLOW); // set text color
+	setcolor(WHITE); // set text color
 	settextstyle(8, 0, 2);
 	outtextxy(140, 10, "===STOP-AND-WAIT-PROTOCOL===");
 	outtextxy(65, 60, "SENDER"); // print text in window graphics
 	outtextxy(460, 60, "RECEIVER");
-	bong(470, 130, 10, GREEN);
+	pkt(470, 130, 10, GREEN);
 	outtextxy(490, 120, "ACK(1)");
-	bong(470, 160, 10, RED);
+	pkt(470, 160, 10, RED);
 	outtextxy(490, 150, "NAK(0)");
 }
 
@@ -50,23 +50,23 @@ void timer() {
 	outtextxy(30, 150, "Timeout in: ");
 	for (unsigned long j = TIMEOUT - elapsedTime; j > 0; j--) {
 		sprintf(digit, "%lu", j);
-		outtextxy(170, 150, digit);
+		outtextxy(190, 150, digit);
 		delay(1000);
 	}
 	settextstyle(4, 0, 2);
-	outtextxy(30, 150, "TIMEOUT!");	delay(1000);
+	outtextxy(30, 150, "TIMEOUT!   ");	delay(1000);
 }
 
 //Hình tin gui di
 void send() {
 	int x, y = 50;
 	for (x = 170; x < 440;) {
-		bong(x, y, 11, BLACK);
+		pkt(x, y, 11, BLACK);
 		x += 10;
-		bong(x, y, 10, WHITE);
+		pkt(x, y, 10, WHITE);
 		delay(100);
 	}
-	bong(x, y, 10, BLACK);
+	pkt(x, y, 10, BLACK);
 }
 
 //Mat tin gui di
@@ -74,13 +74,14 @@ void lostSend() {
 	int x, y = 50;
 	int r = random(200, 400);
 	for (x = 170; x < r;) {
-		bong(x, y, 11, BLACK);
+		pkt(x, y, 11, BLACK);
 		x += 10;
-		bong(x, y, 10, WHITE);
+		pkt(x, y, 10, WHITE);
 		delay(100);
 	}
-	bong(x, y, 10, BLACK);
-	setcolor(RED);
+	pkt(x, y, 10, BLACK);
+	setcolor(YELLOW);
+	settextstyle(4, 0, 2);
 	outtextxy(x, y - 5, "X");
 }
 
@@ -88,12 +89,12 @@ void lostSend() {
 void reply(int mau) {
 	int x, y = 100;
 	for (x = 439; x > 170;) {
-		bong(x, y, 11, BLACK);
+		pkt(x, y, 11, BLACK);
 		x -= 10;
-		bong(x, y, 10, mau);
+		pkt(x, y, 10, mau);
 		delay(100);
 	}
-	bong(x, y, 10, BLACK);
+	pkt(x, y, 10, BLACK);
 }
 
 //Mat tin tra loi
@@ -101,13 +102,14 @@ void lostReply(int mau) {
 	int x, y = 100;
 	int r = random(200, 400);
 	for (x = 439; x > r;) {
-		bong(x, y, 11, BLACK);
+		pkt(x, y, 11, BLACK);
 		x -= 10;
-		bong(x, y, 10, mau);
+		pkt(x, y, 10, mau);
 		delay(100);
 	}
-	bong(x, y, 10, BLACK);
-	setcolor(RED);
+	pkt(x, y, 10, BLACK);
+	setcolor(YELLOW);
+	settextstyle(4, 0, 2);
 	outtextxy(x, y - 5, "X");
 }
 /*****************************************/
@@ -120,7 +122,7 @@ int main() {
 	for (int i = 1; i <= N; i++) {
 		cleardevice();
 		veHinh();
-		setcolor(YELLOW);
+		setcolor(WHITE);
 		outtextxy(30, 120, "Sending pkt: ");
 		sprintf(info, "%d", i);
 		outtextxy(180, 120, info);
